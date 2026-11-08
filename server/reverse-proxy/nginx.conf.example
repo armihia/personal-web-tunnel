@@ -1,0 +1,25 @@
+# 阅读模板；实际片段按 settings.json 生成于 generated/nginx.conf.snippet。
+# 放入现有 http 配置，使用原服务器的有效证书路径。
+server {
+    listen 80;
+    server_name demo.example.com;
+    return 301 https://$host$request_uri;
+}
+server {
+    listen 443 ssl;
+    server_name demo.example.com;
+    ssl_certificate C:/path/to/fullchain.pem;
+    ssl_certificate_key C:/path/to/privkey.pem;
+    location / {
+        proxy_pass http://127.0.0.1:18080;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 3600s;
+        proxy_send_timeout 3600s;
+    }
+}

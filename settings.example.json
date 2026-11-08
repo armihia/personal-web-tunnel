@@ -1,0 +1,18 @@
+{
+  "PublicDomain": "demo.example.com",
+  "ServerAddress": "example.com",
+  "FrpsBindPort": 7000,
+  "RemotePort": 18080,
+  "LocalHost": "127.0.0.1",
+  "LocalPort": 3000,
+  "FrpVersion": "0.71.0",
+  "CaddyVersion": "2.11.7",
+  "ProbeTimeoutSeconds": 3,
+  "ConnectTimeoutSeconds": 20,
+  "ManagerPort": 17890,
+  "LocalRouterPort": 17891,
+  "LocalRouterAdminPort": 17892,
+  "DirectServerIP": "203.0.113.10",
+  "SharedTestEnabled": true,
+  "SharedMainPort": 18081
+}

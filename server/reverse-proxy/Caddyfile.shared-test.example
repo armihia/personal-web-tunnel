@@ -1,0 +1,16 @@
+# 合并到现有 Caddyfile，保留 example.com 的 /join 与其它站点。
+demo.example.com {
+    tls {
+        issuer acme {
+            disable_http_challenge
+        }
+    }
+    @shared_test path /test /test/*
+    handle @shared_test {
+        # 保留 /test 前缀，由对方原有的本机代理处理。
+        reverse_proxy 127.0.0.1:18080
+    }
+    handle {
+        reverse_proxy 127.0.0.1:18081
+    }
+}

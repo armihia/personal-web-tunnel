@@ -1,0 +1,4 @@
+# 合并到已有 Caddyfile。实际配置片段由安装脚本按 settings.json 生成。
+demo.example.com {
+    reverse_proxy 127.0.0.1:18080
+}

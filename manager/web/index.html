@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>网站穿透 · 映射管理</title><link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script></head>
+<body>
+<main>
+  <header class="topbar"><div class="brand"><span class="logo">↗</span><span>网站穿透</span><span class="tag">本机管理</span></div><button id="exit" class="text-button">退出后台服务</button></header>
+  <section class="intro"><div><p class="eyebrow">把本地网站，放到同一个公网入口</p><h1>映射管理</h1><p class="muted">为每个本地端口分配一个路径，保存后即可生效。</p></div><div class="intro-actions"><button id="refresh" class="secondary" title="重新应用映射并更新状态">刷新映射</button><button id="add" class="primary">＋ 添加映射</button></div></section>
+  <section class="overview" aria-label="连接概况">
+    <div class="connection"><span id="connection-dot" class="dot"></span><div><strong id="connection-title">正在读取状态</strong><p id="connection-description">连接本机管理服务…</p></div><button id="connect" class="secondary">连接隧道</button></div>
+    <div class="endpoint"><span>公网入口</span><strong id="domain">—</strong></div><div class="endpoint"><span>服务器</span><strong id="server">—</strong></div>
+  </section>
+  <div id="notice" class="notice" role="status" hidden></div>
+  <p id="shared-test-status" class="refresh-result" role="status" hidden></p>
+  <p id="refresh-result" class="refresh-result" role="status" hidden></p>
+  <section class="mapping-section"><div class="section-heading"><h2>我的映射 <span id="count">0</span></h2><span class="muted small">网站请先在本机启动</span></div>
+    <div class="table-wrap"><table><thead><tr><th>网站名称</th><th>本地端口</th><th>公网地址</th><th>状态</th><th class="right">操作</th></tr></thead><tbody id="rows"></tbody></table><div id="empty" class="empty" hidden><span>↗</span><h3>添加你的第一个网站</h3><p>例如将本地 3000 端口映射到 /web。</p><button id="empty-add" class="secondary">添加映射</button></div></div>
+  </section>
+  <aside class="hint"><span class="hint-icon">i</span><div><strong>使用路径映射的小提示</strong><p>如果网站的图片或脚本使用 /assets 这类绝对地址，请将网站的 base 地址设为对应的 /路径/。WebSocket 会随网站一起转发。</p></div></aside>
+  <footer><span>配置自动保存在本机 · 管理界面不对公网开放</span><span id="updated">—</span></footer>
+</main>
+<dialog id="editor"><form id="mapping-form"><div class="dialog-heading"><h2 id="editor-title">添加映射</h2><button id="cancel-x" type="button" class="close-button" aria-label="关闭">×</button></div><p class="muted">连接一个正在本机运行的网站。</p>
+  <label>网站名称<input id="name" required maxlength="80" placeholder="例如：项目演示" autocomplete="off"></label>
+  <div class="form-grid"><label>本地端口<input id="port" required type="number" min="1" max="65535" placeholder="3000"></label><label>访问路径<input id="path" maxlength="49" placeholder="例如/xxx" autocomplete="off"></label></div>
+  <label>独立域名（可选）<input id="hostname" maxlength="63" pattern="[A-Za-z0-9]([A-Za-z0-9-]{0,61}[A-Za-z0-9])?" placeholder="例如 xxx" autocomplete="off"><small>只填写前缀，自动拼接 <span id="hostname-suffix">.example.com</span>；独立域名使用根路径。</small></label>
+  <label>本地协议<select id="scheme"><option value="http">HTTP</option><option value="https">HTTPS</option></select></label>
+  <label id="ca-file-label" hidden>后端根证书文件（可选）<input id="ca-file" maxlength="1024" placeholder="PEM 格式公开根证书的完整路径" autocomplete="off"><small>不填写时使用系统受信任证书；自签名后端可指定其根证书，连接仍会校验证书。</small></label>
+  <p class="url-preview">公网地址：<span id="url-preview">—</span></p>
+  <label class="check-label"><input id="strip" type="checkbox" checked><span>转发时去掉路径前缀<small>/web/a 会转发到本地 /a；取消后保留 /web/a。</small></span></label>
+  <label class="check-label"><input id="enabled" type="checkbox" checked><span>启用此映射</span></label>
+  <p id="form-error" class="form-error" role="alert" hidden></p><div class="dialog-actions"><button id="cancel" type="button" class="secondary">取消</button><button id="save" class="primary" type="submit">保存映射</button></div>
+</form></dialog>
+</body></html>

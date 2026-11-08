@@ -1,0 +1,8 @@
+# 可选功能：将此站点块合并到实际 Caddyfile，替换用户名和密码哈希。
+# 用 caddy hash-password 交互生成哈希，避免将明文密码写进命令历史。
+demo.example.com {
+    basic_auth {
+        demo REPLACE_WITH_CADDY_PASSWORD_HASH
+    }
+    reverse_proxy 127.0.0.1:18080
+}

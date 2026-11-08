@@ -1,0 +1,19 @@
+# publish.ps1 根据 settings.json 和 -LocalPort 生成实际配置和绝对路径。
+serverAddr = "example.com"
+serverPort = 7000
+loginFailExit = true
+auth.method = "token"
+auth.tokenSource.type = "file"
+auth.tokenSource.file.path = "./token.txt"
+transport.tls.enable = true
+transport.dialServerTimeout = 3
+log.to = "./logs/frpc-example.log"
+log.level = "info"
+log.maxDays = 7
+
+[[proxies]]
+name = "personal-temp-web"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 3000
+remotePort = 18080

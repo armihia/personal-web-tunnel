@@ -1,0 +1,12 @@
+# 只用于阅读。install-server.ps1 根据 settings.json 生成实际配置和绝对路径。
+bindAddr = "0.0.0.0"
+bindPort = 7000
+proxyBindAddr = "127.0.0.1"
+allowPorts = [{ single = 18080 }]
+transport.tls.force = true
+auth.method = "token"
+auth.tokenSource.type = "file"
+auth.tokenSource.file.path = "./token.txt"
+log.to = "./frps.log"
+log.level = "info"
+log.maxDays = 7
